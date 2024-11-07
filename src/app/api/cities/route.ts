@@ -27,7 +27,7 @@ export async function GET() {
     }));
 
     return NextResponse.json(formattedCities);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch cities' },
       { status: 500 }
