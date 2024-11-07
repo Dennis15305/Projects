@@ -3,8 +3,8 @@ import cities from '../../../../public/cities.json';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const sortedCities = cities
-    .filter(city => city.population > 50000)
-    .sort((a, b) => b.population - a.population);
+    .filter(city => parseInt(city.population, 10) > 50000)
+    .sort((a, b) => parseInt(b.population, 10) - parseInt(a.population, 10));
 
-  res.status(200).json(sortedCities.map(city => city.name));
+  res.status(200).json(sortedCities.map(city => city.city));
 }
