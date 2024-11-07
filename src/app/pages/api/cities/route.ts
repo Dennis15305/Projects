@@ -2,16 +2,17 @@ import { NextResponse } from 'next/server';
 import cities from '../../../../../public/cities.json';
 
 export async function GET() {
-  // Фильтрация городов по населению и сортировка
-    const filteredCities = cities
+  // Преобразуем данные в нужный формат
+  const formattedCities = cities.map((city, index) => ({
+    id: index + 1,  // Создаем уникальный id
+    name: city.city,
+    population: parseInt(city.population, 10)
+  }));
+
+  // Фильтруем и сортируем города
+  const filteredCities = formattedCities
     .filter((city) => city.population > 50000)
     .sort((a, b) => b.population - a.population);
 
-    // Переместить город с наибольшим населением на первое место
-    const mostPopulousCity = filteredCities.shift();
-    if (mostPopulousCity) {
-        filteredCities.unshift(mostPopulousCity);
-    }
-
-    return NextResponse.json(filteredCities);
+  return NextResponse.json(filteredCities);
 }
